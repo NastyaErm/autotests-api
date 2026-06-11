@@ -29,10 +29,10 @@ def test_login():
     login_response_data = LoginResponseSchema.model_validate_json(login_response.text)
     #проверка статус-кода
     assert_status_code(login_response.status_code, HTTPStatus.OK)
-    # проверяем содержимое ответа
+    #проверка содержимое ответа
     assert_login_response(login_response_data)
 
-    # валидируем JSON Schema
+    #валидация JSON Schema
     validate_json_schema(login_response.json(),
                          login_response_data.model_json_schema())
 
