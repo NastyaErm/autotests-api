@@ -1,4 +1,5 @@
-from clients.exercises.exercises_schema import CreateExerciseRequestSchema, CreateExerciseResponseSchema
+from clients.exercises.exercises_schema import CreateExerciseRequestSchema, CreateExerciseResponseSchema, \
+    ExerciseSchema, GetExerciseResponseSchema, GetExercisesRequest
 from tools.assertions.base import assert_equal
 
 
@@ -22,3 +23,40 @@ def assert_create_exercise_response(
     assert_equal(response.exercise.description, request.description, "description")
     assert_equal(response.exercise.estimated_time, request.estimated_time, "estimated_time")
 
+
+def assert_exercise(
+        expected: ExerciseSchema,
+        actual: ExerciseSchema
+):
+    """
+    Проверяет, что данные задания соответствуют ожидаемым значениям.
+
+    :param expected: Ожидаемые данные задания.
+    :param actual: Фактические данные задания из ответа API.
+    :raises AssertionError: Если хотя бы одно поле задания не совпадает.
+    """
+    assert_equal(actual.id, expected.id, "id")
+    assert_equal(actual.title, expected.title, "title")
+    assert_equal(actual.course_id, expected.course_id, "course_id")
+    assert_equal(actual.max_score, expected.max_score, "max_score")
+    assert_equal(actual.min_score, expected.min_score, "min_score")
+    assert_equal(actual.order_index, expected.order_index, "order_index")
+    assert_equal(actual.description, expected.description, "description")
+    assert_equal(actual.estimated_time, expected.estimated_time, "estimated_time")
+
+
+def assert_get_exercise_response(
+        expected: CreateExerciseResponseSchema,
+        actual: GetExerciseResponseSchema
+):
+    """
+    Проверяет, что ответ на получение задания соответствует ожидаемым значениям.
+
+    :param expected: Ожидаемый ответ на создание задания.
+    :param actual: Фактический ответ на получение задания.
+    :return: Если данные задания не совпадают.
+    """
+    assert_exercise(
+        expected.exercise,
+        actual.exercise
+    )
