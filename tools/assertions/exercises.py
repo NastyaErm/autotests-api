@@ -1,5 +1,5 @@
 from clients.exercises.exercises_schema import CreateExerciseRequestSchema, CreateExerciseResponseSchema, \
-    ExerciseSchema, GetExerciseResponseSchema, GetExercisesRequest
+    ExerciseSchema, GetExerciseResponseSchema
 from tools.assertions.base import assert_equal
 
 
